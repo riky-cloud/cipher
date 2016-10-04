@@ -26,6 +26,7 @@
 		
 		$i++;
 		$data[$i] = ' ';
+		$i++;
 		$data[$i] = '_';
 
 		return $data;
