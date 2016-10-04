@@ -8,27 +8,22 @@
 
 		foreach (range('A', 'Z') as $char) {
 		    $data[$i] =  $char;
-
 		    $i = $i + $rand;
-
 		    $rand++;
 		}
 
 		foreach (range('!', '@') as $char) {
 		    $data[$i] =  $char;
-
 		    $i = $i + $rand;
-
 		    $rand++;
 		}
 
 		foreach (range('a', 'z') as $char) {
 		    $data[$i] =  $char;
-
 		    $i = $i + $rand;
-
 		    $rand++;
 		}
+		
 		$i++;
 		$data[$i] = ' ';
 		$data[$i] = '_';
@@ -39,7 +34,6 @@
 	function cipher_encode($text, $data)
 	{
 		$arrText = str_split($text);
-
 		foreach ($arrText as $tx) {
 			if(in_array($tx, $data)) {
 				$arrKey[] 	= array_search($tx, $data);
