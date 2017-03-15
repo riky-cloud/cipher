@@ -1,73 +1,63 @@
 <?php
-	
-	function cipher()
-	{	
-		// digit 5 for str_split by 5 char
-		$rand = 1000;
-		$i = $rand + 9989;
+class Cipher{
+    public $data;
 
-		foreach (range('A', 'Z') as $char) {
-		    $data[$i] =  $char;
-		    $i = $i + $rand;
-		    $rand++;
-		}
+    public function __construct(){
+        // digit 5 for str_split by 5 char
+        $rand = 1000;
+        $i = $rand + 9989;
+        foreach (range('A', 'Z') as $char) {
+            $data[$i] = $char;
+            $i = $i + $rand;
+            $rand++;
+        }
 
-		foreach (range('!', '@') as $char) {
-		    $data[$i] =  $char;
-		    $i = $i + $rand;
-		    $rand++;
-		}
+        foreach (range('!', '@') as $char) {
+            $data[$i] = $char;
+            $i = $i + $rand;
+            $rand++;
+        }
 
-		foreach (range('a', 'z') as $char) {
-		    $data[$i] =  $char;
-		    $i = $i + $rand;
-		    $rand++;
-		}
-		
-		$i++;
-		$data[$i] = ' ';
-		$i++;
-		$data[$i] = '_';
+        foreach (range('a', 'z') as $char) {
+            $data[$i] = $char;
+            $i = $i + $rand;
+            $rand++;
+        }
 
-		return $data;
-	}
+        $i++;
+        $data[$i] = ' ';
+        $i++;
+        $data[$i] = '_';
+        $this->data = $data;
+    }
 
-	function cipher_encode($text, $data)
-	{
-		$arrText = str_split($text);
-		foreach ($arrText as $tx) {
-			if(in_array($tx, $data)) {
-				$arrKey[] 	= array_search($tx, $data);
-			} 
-		}
-
-		return join($arrKey);
-	}
-
-	function cipher_decode($encode, $data)
-	{
-		$arrKey = str_split($encode, 5);
-		foreach ($arrKey as $key) {
-			$result[] = $data[$key];
-		}
-
-		return join($result);
-	}
+    public function cipher_encode($text){
+        $arrText = str_split($text);
+        foreach ($arrText as $tx)
+            if (in_array($tx, $this->data))
+                $arrKey[] = array_search($tx, $this->data);
 
 
-	$data = cipher();
-	$text = 'hello';
-	$encode = cipher_encode($text, $data);
-	$decode = cipher_decode($encode, $data);
+        return join($arrKey);
+    }
 
-	echo '<pre>';
-	echo "Base array";
-	print_r($data);
-	echo '</pre>';
+    public function cipher_decode($encode){
+        $arrKey = str_split($encode, 5);
+        foreach ($arrKey as $key)
+            $result[] = $this->data[$key];
+        return join($result);
+    }
+}
 
-	echo "text => hello <br>";
-	echo 'encode => '. $encode;
-	echo "<br>";
-	echo 'decode => '.$decode;
+$cipher = new Cipher;
+$text = "hello";
+$encode = $cipher->cipher_encode($text);
+$decode = $cipher->cipher_decode($encode);
+
+echo '<pre>'.
+    'text   => ' . $text . "\n" .
+    'encode => ' . $encode . "\n" .
+    'decode => ' . $decode;
+print_r($cipher->data);
 
 ?>
